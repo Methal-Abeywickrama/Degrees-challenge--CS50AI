@@ -94,15 +94,17 @@ def shortest_path(source, target):
     if source == target:
         return []
     source = Node(source, [], QueueFrontier())
+    explored = []
     while True: 
         connections = neighbors_for_person(source.state)
         for movie_id, person_id in connections:
-            if person_id == source:
-                next
+            if person_id == source or (person_id in explored):
+                continue
             elif person_id == target:
                 return source.parent + [(movie_id, person_id)]
             else:
                 source.action.add(Node(person_id, source.parent + [(movie_id, person_id)], source.action))
+                explored.append(person_id)
         if source.action.empty(): return 
         source = source.action.remove()
 
