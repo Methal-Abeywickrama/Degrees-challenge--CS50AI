@@ -27,7 +27,7 @@ def load_data(directory):
                 "movies": set()
             }
             if row["name"].lower() not in names:
-                names[row["name"].lower()] = {row["id"]}
+                names[row["name"].lower()] = {row["id"]} # this creates a set of ids
             else:
                 names[row["name"].lower()].add(row["id"])
 
@@ -91,9 +91,20 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
-
+    source = Node(source, [], QueueFrontier())
+    while True: 
+        connections = neighbors_for_person(source.state)
+        for movie_id, person_id in connections:
+            if person_id == source:
+                next
+            elif person_id == target:
+                return source.parent + [(movie_id, person_id)]
+            else:
+                source.action.add(Node(person_id, source.parent + [(movie_id, person_id)], source.action))
+        if source.action.empty(): return 
+        source = source.action.remove()
     # TODO
-    raise NotImplementedError
+    # raise NotImplementedError
 
 
 def person_id_for_name(name):
