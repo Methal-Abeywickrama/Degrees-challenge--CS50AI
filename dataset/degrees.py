@@ -91,6 +91,8 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+    if source == target:
+        return []
     source = Node(source, [], QueueFrontier())
     while True: 
         connections = neighbors_for_person(source.state)
@@ -103,8 +105,6 @@ def shortest_path(source, target):
                 source.action.add(Node(person_id, source.parent + [(movie_id, person_id)], source.action))
         if source.action.empty(): return 
         source = source.action.remove()
-    # TODO
-    # raise NotImplementedError
 
 
 def person_id_for_name(name):
